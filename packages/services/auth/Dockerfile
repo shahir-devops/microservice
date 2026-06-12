@@ -4,5 +4,5 @@ copy package.json ./
 copy ../../shared ./packages/shared
 copy ./ ./
 run npm install
-expose 3008
+expose 3010
 CMD ["npm","start"]
