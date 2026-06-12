@@ -1,0 +1,10 @@
+{
+  "name": "@micro/payments",
+  "private": true,
+  "version": "0.0.1",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": { "start": "node src/index.js" },
+  "dependencies": { "@micro/shared": "workspace:*", "express": "^4.19.2", "pg": "^8.13.1" }
+}
+
