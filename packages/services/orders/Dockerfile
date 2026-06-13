@@ -1,8 +1,8 @@
 from node:20-alpine
 workdir /app
-copy services/order/package.json ./
+copy services/orders/package.json ./
 copy shared ./packages/shared
-copy services/order/ ./
+copy services/orders/ ./
 run npm install
 expose 3005
 cmd ["npm", "start"]
