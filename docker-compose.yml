@@ -7,8 +7,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3001:3001"
-    depends_on:
-      - mysql
+
 
   cart:
     build:
@@ -18,8 +17,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3002:3002"
-    depends_on:
-      - mysql
+
 
   notifications:
     build:
@@ -29,8 +27,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3003:3003"
-    depends_on:
-      - mysql
+
 
   wishlist:
     build:
@@ -40,8 +37,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3004:3004"
-    depends_on:
-      - mysql
+
 
   orders:
     build:
@@ -51,8 +47,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3005:3005"
-    depends_on:
-      - mysql
+
 
   payments:
     build:
@@ -62,8 +57,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3006:3006"
-    depends_on:
-      - mysql
+
 
   helpcenter:
     build:
@@ -73,8 +67,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3007:3007"
-    depends_on:
-      - mysql
+
 
   address:
     build:
@@ -84,8 +77,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3008:3008"
-    depends_on:
-      - mysql
+
 
   reviews:
     build:
@@ -95,8 +87,7 @@ services:
       - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3009:3009"
-    depends_on:
-      - mysql
+
 
   auth:
     build:
@@ -107,7 +98,6 @@ services:
       
     ports:
       - "3010:3010"
-    depends_on:
-      - mysql
+
 
 
