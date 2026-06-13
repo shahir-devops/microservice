@@ -12,7 +12,11 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "docker build -f packages/frontend/Dockerfile -t shahir5890/frontend:${BUILD_NUMBER} ."
+
+                    sh '''
+                    docker system prune -af
+                    docker build -f packages/frontend/Dockerfile -t shahir5890/frontend:${BUILD_NUMBER} .
+                    '''
                 }
             }
         }
@@ -26,7 +30,7 @@ pipeline {
                                 passwordVariable: 'docker_pass'
                             )
                         ]) {
-                    sh "docker push shahir5890/frontend:${BUILD_NUMBER} ."
+                            sh "docker push shahir5890/frontend:${BUILD_NUMBER}"
                         }
                 }
             }
