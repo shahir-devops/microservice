@@ -8,7 +8,7 @@
     "start": "node src/index.js"
   },
   "dependencies": {
-    "@micro/shared": "workspace:*",
+    "@micro/shared": "file:../../shared",
     "express": "^4.19.2",
     "mysql2": "^3.11.5"
   }
