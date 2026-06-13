@@ -1,14 +1,4 @@
 services:
- frontend:
-    build:
-      context: ./packages/frontend
-    environment:
-      - VITE_API_BASE=http://host.docker.internal:3000
-    ports:
-      - "5173:80"
-    depends_on:
-      - profile
-
   profile:
     build:
       context: ./packages/services/profile
