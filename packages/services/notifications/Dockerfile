@@ -1,4 +1,4 @@
-from:20-alpine
+from node:20-alpine
 workdir /app
 copy /shared ./packages/shared
 copy /services/profile/ ./
