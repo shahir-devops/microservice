@@ -13,18 +13,19 @@ spec:
       labels:
         app: cart
     spec:
-    - name: cart
-      image: cart:latest
-      ports:
-      - containerPort: 3002
-      env:
-      - nme: PORT
-        value: "3002"
-      - name: DATABASE_URL
-        valueFrom:
-          secretKeyRef:
-            name: secret-db
-            key: DATABASE_URL
+      containers:
+      - name: cart
+        image: cart:latest
+        ports:
+        - containerPort: 3002
+        env:
+        - nme: PORT
+          value: "3002"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: secret-db
+              key: DATABASE_URL
 ---
 apiVersion: v1
 kind: Service
