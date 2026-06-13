@@ -1,94 +1,95 @@
 -- Baseline schema for all microservices (scaffold)
--- Uses a single Postgres database and simple tables per feature.
--- Extend these tables as you implement real logic.
+-- MySQL version of the original Postgres scaffold.
 
 -- profile
 CREATE TABLE IF NOT EXISTS profiles (
-  user_id TEXT PRIMARY KEY,
+  user_id VARCHAR(255) PRIMARY KEY,
   display_name TEXT NOT NULL,
-  email TEXT,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  email VARCHAR(255),
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- cart
 CREATE TABLE IF NOT EXISTS carts (
-  user_id TEXT PRIMARY KEY,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  user_id VARCHAR(255) PRIMARY KEY,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS cart_items (
-  user_id TEXT NOT NULL,
-  sku TEXT NOT NULL,
-  qty INT NOT NULL CHECK (qty >= 0),
-  PRIMARY KEY (user_id, sku)
+  user_id VARCHAR(255) NOT NULL,
+  sku VARCHAR(255) NOT NULL,
+  qty INT NOT NULL,
+  PRIMARY KEY (user_id, sku),
+  CONSTRAINT cart_items_qty_ck CHECK (qty >= 0)
 );
 
 -- notifications
 CREATE TABLE IF NOT EXISTS notifications (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
+  id VARCHAR(255) PRIMARY KEY,
+  user_id VARCHAR(255) NOT NULL,
   message TEXT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- wishlist
 CREATE TABLE IF NOT EXISTS wishlist_items (
-  user_id TEXT NOT NULL,
-  sku TEXT NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  sku VARCHAR(255) NOT NULL,
   name TEXT,
   PRIMARY KEY (user_id, sku)
 );
 
 -- orders
 CREATE TABLE IF NOT EXISTS orders (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
-  status TEXT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  id VARCHAR(255) PRIMARY KEY,
+  user_id VARCHAR(255) NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- payments
 CREATE TABLE IF NOT EXISTS payments (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
-  status TEXT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  id VARCHAR(255) PRIMARY KEY,
+  user_id VARCHAR(255) NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- helpcenter
 CREATE TABLE IF NOT EXISTS faqs (
-  id TEXT PRIMARY KEY,
+  id VARCHAR(255) PRIMARY KEY,
   q TEXT NOT NULL,
   a TEXT NOT NULL
 );
 
 -- address
 CREATE TABLE IF NOT EXISTS addresses (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
+  id VARCHAR(255) PRIMARY KEY,
+  user_id VARCHAR(255) NOT NULL,
   line1 TEXT NOT NULL,
   line2 TEXT,
-  city TEXT,
-  state TEXT,
-  country TEXT,
-  postal_code TEXT,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  city VARCHAR(255),
+  state VARCHAR(255),
+  country VARCHAR(255),
+  postal_code VARCHAR(50),
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- reviews
 CREATE TABLE IF NOT EXISTS reviews (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
-  rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  id VARCHAR(255) PRIMARY KEY,
+  user_id VARCHAR(255) NOT NULL,
+  rating INT NOT NULL,
   text TEXT,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT reviews_rating_ck CHECK (rating >= 1 AND rating <= 5)
 );
 
 -- auth (minimal)
 CREATE TABLE IF NOT EXISTS users (
-  id TEXT PRIMARY KEY,
-  email TEXT UNIQUE,
+  id VARCHAR(255) PRIMARY KEY,
+  email VARCHAR(255) UNIQUE,
   password_hash TEXT,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 

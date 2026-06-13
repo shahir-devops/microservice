@@ -1,18 +1,5 @@
 services:
-  postgres:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: micro
-      POSTGRES_PASSWORD: micro
-      POSTGRES_DB: micro
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./db/init:/docker-entrypoint-initdb.d
-
-
-  frontend:
+ frontend:
     build:
       context: ./packages/frontend
     environment:
@@ -27,111 +14,110 @@ services:
       context: ./packages/services/profile
     environment:
       - PORT=3001
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3001:3001"
     depends_on:
-      - postgres
+      - mysql
 
   cart:
     build:
       context: ./packages/services/cart
     environment:
       - PORT=3002
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3002:3002"
     depends_on:
-      - postgres
+      - mysql
 
   notifications:
     build:
       context: ./packages/services/notifications
     environment:
       - PORT=3003
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3003:3003"
     depends_on:
-      - postgres
+      - mysql
 
   wishlist:
     build:
       context: ./packages/services/wishlist
     environment:
       - PORT=3004
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3004:3004"
     depends_on:
-      - postgres
+      - mysql
 
   orders:
     build:
       context: ./packages/services/orders
     environment:
       - PORT=3005
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3005:3005"
     depends_on:
-      - postgres
+      - mysql
 
   payments:
     build:
       context: ./packages/services/payments
     environment:
       - PORT=3006
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3006:3006"
     depends_on:
-      - postgres
+      - mysql
 
   helpcenter:
     build:
       context: ./packages/services/helpcenter
     environment:
       - PORT=3007
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3007:3007"
     depends_on:
-      - postgres
+      - mysql
 
   address:
     build:
       context: ./packages/services/address
     environment:
       - PORT=3008
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3008:3008"
     depends_on:
-      - postgres
+      - mysql
 
   reviews:
     build:
       context: ./packages/services/reviews
     environment:
       - PORT=3009
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
     ports:
       - "3009:3009"
     depends_on:
-      - postgres
+      - mysql
 
   auth:
     build:
       context: ./packages/services/auth
     environment:
       - PORT=3010
-      - DATABASE_URL=postgres://micro:micro@postgres:5432/micro
+      - DATABASE_URL=mysql://admin:Devops123@ecommerce.chgqk6us4gk8.ap-south-1.rds.amazonaws.com:3306/mysql
+      
     ports:
       - "3010:3010"
     depends_on:
-      - postgres
+      - mysql
 
-volumes:
-  postgres_data:
 

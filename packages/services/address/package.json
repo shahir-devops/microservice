@@ -5,6 +5,10 @@
   "type": "commonjs",
   "main": "src/index.js",
   "scripts": { "start": "node src/index.js" },
-  "dependencies": { "@micro/shared": "workspace:*", "express": "^4.19.2", "pg": "^8.13.1" }
+  "dependencies": {
+    "@micro/shared": "workspace:*",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.5"
+  }
 }
 

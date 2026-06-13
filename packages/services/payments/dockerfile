@@ -5,4 +5,4 @@ copy ../../shared ./packages/shared
 copy ./ ./
 expose 3006
 run npm install
-cmd ["cmd", "start"]
+cmd ["npm", "start"]
