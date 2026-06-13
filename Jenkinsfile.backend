@@ -2,9 +2,9 @@ pipeline {
   agent any
 
   environment {
-    REGISTRY = credentials('DOCKER_REGISTRY') // e.g. "docker.io/youruser" or "ghcr.io/owner"
-    IMAGE_TAG = "${env.BUILD_NUMBER}-${env.GIT_COMMIT.take(7)}"
-  }
+    DOCKER_USER = 'shahir5890'
+    IMAGE_TAG = "${env.BUILD_NUMBER}"
+}
 
   stages {
     stage('Checkout') {
@@ -16,6 +16,16 @@ pipeline {
     stage('Build & Push Backend Docker images') {
       steps {
         script {
+            withCredentials([
+    usernamePassword(
+        credentialsId: 'DOCKER_REGISTRY',
+        usernameVariable: 'DOCKER_USER_CRED',
+        passwordVariable: 'DOCKER_PASS'
+        )
+    ]) {
+            sh '''
+                echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER_CRED" --password-stdin
+            '''
           // Build list: service folder name -> dockerfile path
           // NOTE: payments dockerfile will be renamed to Dockerfile (see repo changes) so we can use consistent Dockerfile name.
           def services = [
@@ -36,6 +46,7 @@ pipeline {
             sh "docker build -t ${image} -f ${s.dockerfile} ."
             sh "docker push ${image}"
           }
+        }
         }
       }
     }
