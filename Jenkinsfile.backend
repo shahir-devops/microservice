@@ -74,7 +74,7 @@ pipeline {
                         sed -i 's#image:.*#image: shahir5890/backend_notifications:${BUILD_NUMBER}#' service-notification.yaml
                         sed -i 's#image:.*#image: shahir5890/backend_wishlist:${BUILD_NUMBER}#' service-wishlist.yaml
                         sed -i 's#image:.*#image: shahir5890/backend_orders:${BUILD_NUMBER}#' service-orders.yml
-                        sed -i 's#image:.*#image: shahir5890/backend_payments:${BUILD_NUMBER}#' service-payment.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_payments:${BUILD_NUMBER}#' service-payment.yml
                         sed -i 's#image:.*#image: shahir5890/backend_helpcenter:${BUILD_NUMBER}#' service-helpcenter.yml
                         sed -i 's#image:.*#image: shahir5890/backend_address:${BUILD_NUMBER}#' service-address.yml
                         sed -i 's#image:.*#image: shahir5890/backend_reviews:${BUILD_NUMBER}#' service-reviews.yaml
