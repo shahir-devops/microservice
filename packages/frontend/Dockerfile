@@ -2,7 +2,7 @@ from node:20-alpine AS build
 WORKDIR /app
 copy packages/frontend/package.json ./
 run npm install
-copy . . 
+copy packages/frontend/ . 
 run npm run build
 
 from nginx:alpine
