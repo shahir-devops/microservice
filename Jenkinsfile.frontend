@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git') {
+            steps {
+                git credentialsId: 'git_cred',
+                    url: 'https://github.com/shahir-devops/microservice.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    sh "docker build -f packages/frontend/Dockerfile -t shahir5890/frontend:${BUILD_NUMBER} ."
+                }
+            }
+        }
+        stage(' Push') {
+            steps {
+                script {
+                    withCredentials([
+                            usernamePassword(
+                                credentialsId: 'DOCKER_REGISTRY',
+                                usernameVariable: 'docker_login',
+                                passwordVariable: 'docker_pass'
+                            )
+                        ]) {
+                    sh "docker push shahir5890/frontend:${BUILD_NUMBER} ."
+                        }
+                }
+            }
+        }
+        stage("replace_tag") {
+            steps {
+                dir("kubernetes") {
+                    sh "sed -i 's#image:.*#image: shahir5890/frontend:${BUILD_NUMBER}#' frontend.yaml"
+                }
+            }
+        }
+    }
+}
