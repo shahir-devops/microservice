@@ -1,0 +1,81 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: Backend
+  namespace: sap
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /profile/api
+        pathType: Prefix
+        backend:
+          service:
+            name: profile
+            port:
+              number: 3001
+      - path: /cart/api
+        pathType: Prefix
+        backend:
+          service:
+            name: cart
+            port:
+              number: 3002
+      - path: /notifications/api
+        pathType: Prefix
+        backend:
+          service:
+            name: notifications
+            port:
+              number: 3003
+      - path: /wishlist/api
+        pathType: Prefix
+        backend:
+          service:
+            name: wishlist
+            port:
+              number: 3004
+      - path: /orders/api
+        pathType: Prefix
+        backend:
+          service:
+            name: orders
+            port:
+              number: 3005
+      - path: /payments/api
+        pathType: Prefix
+        backend:
+          service:
+            name: payment
+            port:
+              number: 3006
+      - path: /helpcenter/api
+        pathType: Prefix
+        backend:
+          service:
+            name: helpcenter
+            port:
+              number: 3007
+      - path: /address/api
+        pathType: Prefix
+        backend:
+          service:
+            name: address
+            port:
+              number: 3008
+      - path: /reviews/api
+        pathType: Prefix
+        backend:
+          service:
+            name: reviews
+            port:
+              number: 3009
+      - path: /auth/api
+        pathType: Prefix
+        backend:
+          service:
+            name: auth
+            port:
+              number: 3010
