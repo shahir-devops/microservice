@@ -1,6 +1,6 @@
 from node:20-alpine AS build
 WORKDIR /app
-copy package.json ./
+copy packages/frontend/package.json ./
 run npm install
 copy . . 
 run npm run build
