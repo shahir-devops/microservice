@@ -4,35 +4,57 @@ pipeline {
     stages {
         stage('git') {
             steps {
-                git credentialsId: 'git_cred', url: 'https://github.com/shahir-devops/microservice.git'
+                git credentialsId: 'git_cred',
+                    url: 'https://github.com/shahir-devops/microservice.git'
             }
         }
-        stage("check"){
-            steps{
-                def services = ['auth','profile','cart','notifications','wishlist','orders','payments','helpcenter','address','reviews']
 
-                dir('packages') {
-                    withCredentials([usernamePassword(
-                        credentialsId: 'DOCKER_REGISTRY', 
-                        passwordVariable: 'docker_pass', 
-                        usernameVariable: 'docker_login'
-                        )]) 
-                        {
-                            echo "$docker_pass" | docker login -u "$docker_login" --password-stdin
+        stage('Build & Push') {
+            steps {
+                script {
+
+                    def services = [
+                        'auth',
+                        'profile',
+                        'cart',
+                        'notifications',
+                        'wishlist',
+                        'orders',
+                        'payments',
+                        'helpcenter',
+                        'address',
+                        'reviews'
+                    ]
+
+                    dir('packages') {
+
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'DOCKER_REGISTRY',
+                                usernameVariable: 'docker_login',
+                                passwordVariable: 'docker_pass'
+                            )
+                        ]) {
+
+                            sh '''
+                                echo "$docker_pass" | docker login -u "$docker_login" --password-stdin
+                            '''
+
                             for (service in services) {
 
-                                sh '''
-                                    docker system prune -af
-                                    docker build -f services/${service}/Dockerfile -t shahir5890/backend_${service}:${BUILD_NUMBER} .
-                                    docker push shahir5890/${service}:${BUILD_NUMBER}
-                                '''
-                                }
-                        
+                                sh """
+                                    docker build \
+                                    -f services/${service}/Dockerfile \
+                                    -t shahir5890/backend_${service}:${BUILD_NUMBER} \
+                                    .
+
+                                    docker push shahir5890/backend_${service}:${BUILD_NUMBER}
+                                """
                             }
+                        }
+                    }
                 }
-                
             }
         }
     }
 }
-
