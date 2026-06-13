@@ -49,10 +49,29 @@ pipeline {
                                     .
 
                                     docker push shahir5890/backend_${service}:${BUILD_NUMBER}
+                                    
                                 """
                             }
                         }
                     }
+                }
+            }
+        }
+        stage("replace_tag") {
+            steps {
+                dir("kubernetes") {
+                    sh """
+                        sed -i 's#image:.*#image: shahir5890/backend_auth:${BUILD_NUMBER}#' service-auth.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_profile:${BUILD_NUMBER}#' service-profile.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_cart:${BUILD_NUMBER}#' service-cart.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_notifications:${BUILD_NUMBER}#' service-notifications.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_wishlist:${BUILD_NUMBER}#' service-wishlist.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_orders:${BUILD_NUMBER}#' service-orders.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_payments:${BUILD_NUMBER}#' service-payments.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_helpcenter:${BUILD_NUMBER}#' service-helpcenter.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_address:${BUILD_NUMBER}#' service-address.yaml
+                        sed -i 's#image:.*#image: shahir5890/backend_reviews:${BUILD_NUMBER}#' service-reviews.yaml
+                    """
                 }
             }
         }
