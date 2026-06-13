@@ -1,0 +1,44 @@
+pipeline {
+  agent any
+
+  environment {
+    REGISTRY = credentials('DOCKER_REGISTRY') // e.g. "docker.io/youruser" or "ghcr.io/owner"
+    IMAGE_TAG = "${env.BUILD_NUMBER}-${env.GIT_COMMIT.take(7)}"
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Build & Push Backend Docker images') {
+      steps {
+        script {
+          // Build list: service folder name -> dockerfile path
+          // NOTE: payments dockerfile will be renamed to Dockerfile (see repo changes) so we can use consistent Dockerfile name.
+          def services = [
+            [name: 'auth',         dockerfile: 'packages/services/auth/Dockerfile',         port: '3010'],
+            [name: 'profile',     dockerfile: 'packages/services/profile/Dockerfile',     port: '3001'],
+            [name: 'cart',         dockerfile: 'packages/services/cart/Dockerfile',         port: '3002'],
+            [name: 'notifications',dockerfile: 'packages/services/notifications/Dockerfile',port: '3003'],
+            [name: 'wishlist',     dockerfile: 'packages/services/wishlist/Dockerfile',     port: '3004'],
+            [name: 'orders',       dockerfile: 'packages/services/orders/Dockerfile',       port: '3005'],
+            [name: 'payments',     dockerfile: 'packages/services/payments/Dockerfile',    port: '3006'],
+            [name: 'helpcenter',   dockerfile: 'packages/services/helpcenter/Dockerfile',   port: '3007'],
+            [name: 'address',      dockerfile: 'packages/services/address/Dockerfile',      port: '3008'],
+            [name: 'reviews',      dockerfile: 'packages/services/reviews/Dockerfile',      port: '3009'],
+          ]
+
+          for (def s : services) {
+            def image = "${env.REGISTRY}/${s.name}:${env.IMAGE_TAG}"
+            sh "docker build -t ${image} -f ${s.dockerfile} ."
+            sh "docker push ${image}"
+          }
+        }
+      }
+    }
+  }
+}
+
