@@ -14,7 +14,7 @@ spec:
         app: notifications
     spec:
       containers:
-        - image: shahir5890/backend_notifications:7
+        - image: shahir5890/backend_notifications:8
           name:  notifications
           ports:
           - containerPort: 3003
