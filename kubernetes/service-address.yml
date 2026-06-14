@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: address
-        image: address:latest
+        image: shahir5890/backend_address:3
         ports:
         - containerPort: 3008
         env:
