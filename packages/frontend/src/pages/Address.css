@@ -1,0 +1,58 @@
+/* Address UI styles */
+:root{
+  --text:#111827;
+  --muted:#6b7280;
+  --border:rgba(0,0,0,.08);
+}
+
+.page{padding:16px;display:flex;justify-content:center}
+.shell{width:100%;max-width:980px}
+
+.cardBox{
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:rgba(255,255,255,.75);
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+  backdrop-filter: blur(8px);
+}
+
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.badgeDark{
+  background:#111827;
+  color:#fff;
+  border-radius:999px;
+  padding:6px 10px;
+  opacity:.9;
+  font-size:12px;
+  font-weight:900;
+}
+
+.addrTitle{
+  font-size:16px;
+  font-weight:1100;
+}
+
+.addrLine{
+  margin-top:8px;
+  color:#374151;
+  font-weight:800;
+  line-height:1.5;
+}
+
+.addrMeta{
+  margin-top:8px;
+  color:var(--muted);
+  font-weight:900;
+}
+
+.cardBody{
+  padding:14px;
+}
+

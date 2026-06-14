@@ -16,21 +16,24 @@ export default function Profile() {
   return (
     <section style={styles.page}>
       <div style={styles.card}>
-        <div style={styles.topRow}>
-          {p?.image_url || p?.imageUrl ? (
-            <img src={p.image_url || p.imageUrl} alt="profile" style={styles.avatar} />
-          ) : (
-            <div style={styles.avatarPlaceholder}>
-              {(p?.display_name || p?.displayName || 'U').slice(0, 1).toUpperCase()}
-            </div>
-          )}
-          <div style={{ flex: 1 }}>
-            <div style={styles.nameRow}>
+        {/* Only one inner box: name, username, phone number, image */}
+        <div style={styles.infoBox}>
+          <div style={styles.nameRow}>
+            <div>
               <h2 style={{ margin: 0 }}>{p?.display_name || p?.displayName || '—'}</h2>
-              <span style={styles.chip}>{p?.username || p?.userName || '—'}</span>
+              <div style={styles.sub}>Username: {p?.username || p?.userName || '—'}</div>
+              <div style={styles.sub}>Phone: {p?.phone_number || p?.phoneNumber || '—'}</div>
             </div>
-            <div style={styles.sub}>Email: {p?.email || '—'}</div>
-            <div style={styles.sub}>Phone: {p?.phone_number || p?.phoneNumber || '—'}</div>
+
+            <div style={styles.avatarWrap}>
+              {p?.image_url || p?.imageUrl ? (
+                <img src={p.image_url || p.imageUrl} alt="profile" style={styles.avatarSmall} />
+              ) : (
+                <div style={styles.avatarPlaceholderSmall}>
+                  {(p?.display_name || p?.displayName || 'U').slice(0, 1).toUpperCase()}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -54,39 +57,48 @@ const styles = {
     backdropFilter: 'blur(8px)',
   },
   topRow: { display: 'flex', gap: 14, alignItems: 'center' },
-  avatar: {
-    width: 110,
-    height: 110,
-    borderRadius: 28,
-    objectFit: 'cover',
+  infoBox: {
+    padding: 14,
+    borderRadius: 14,
+    border: '1px solid rgba(0,0,0,0.08)',
+    background: 'rgba(255,255,255,0.7)',
+    boxShadow: '0 14px 30px rgba(0,0,0,0.06)',
+  },
+  nameRow: { display: 'flex', gap: 14, alignItems: 'center', justifyContent: 'space-between' },
+  sub: { color: '#4b5563', marginTop: 6, fontWeight: 600 },
+  avatarWrap: {
+    width: 88,
+    height: 88,
+    borderRadius: 22,
+    overflow: 'hidden',
+    flexShrink: 0,
     border: '1px solid rgba(0,0,0,0.12)',
     boxShadow: '0 10px 20px rgba(0,0,0,0.08)',
-  },
-  avatarPlaceholder: {
-    width: 110,
-    height: 110,
-    borderRadius: 28,
+    background: 'rgba(0,0,0,0.03)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 40,
+  },
+  avatarSmall: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+  avatarPlaceholderSmall: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 34,
     fontWeight: 900,
     color: '#111827',
     background: 'rgba(0,0,0,0.04)',
     border: '1px dashed rgba(0,0,0,0.18)',
+    borderRadius: 22,
   },
-  nameRow: { display: 'flex', gap: 10, alignItems: 'center' },
-  chip: {
-    background: '#111827',
-    color: 'white',
-    fontSize: 12,
-    padding: '6px 10px',
-    borderRadius: 999,
-    opacity: 0.9,
-    whiteSpace: 'nowrap',
-  },
-  sub: { color: '#4b5563', marginTop: 6, fontWeight: 600 },
   error: {
+
     marginTop: 14,
     padding: 10,
     borderRadius: 12,

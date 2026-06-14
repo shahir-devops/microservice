@@ -13,7 +13,9 @@ export default function EditProfile() {
     displayName: '',
     phoneNumber: '',
     imageUrl: '',
+    password: '',
   });
+
 
   useEffect(() => {
     fetchProfile(userId)
@@ -24,7 +26,9 @@ export default function EditProfile() {
           displayName: p.display_name || p.displayName || '',
           phoneNumber: p.phone_number || p.phoneNumber || '',
           imageUrl: p.image_url || p.imageUrl || '',
+          password: '',
         });
+
       })
       .catch((e) => setErr(e.message))
       .finally(() => setLoading(false));
@@ -42,6 +46,8 @@ export default function EditProfile() {
         displayName: form.displayName.trim(),
         phoneNumber: form.phoneNumber.trim(),
         imageUrl: form.imageUrl.trim(),
+        // Backend may ignore if password update isn't supported.
+        password: form.password.trim(),
       });
       setSuccess('Profile updated successfully.');
       const res = await fetchProfile(userId);
@@ -138,6 +144,17 @@ export default function EditProfile() {
                     <div style={styles.avatarPlaceholder}>No image</div>
                   )}
                 </div>
+              </div>
+
+              <div style={styles.col}>
+                <label style={styles.label}>New Password</label>
+                <input
+                  type="password"
+                  value={form.password}
+                  onChange={(e) => setForm((s) => ({ ...s, password: e.target.value }))}
+                  style={styles.input}
+                  placeholder="Leave blank to keep current"
+                />
               </div>
             </div>
 
