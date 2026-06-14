@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: shahir5890/frontend:13
+        image: shahir5890/frontend:14
         ports:
         - containerPort:  80
 ---
