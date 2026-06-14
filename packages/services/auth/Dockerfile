@@ -3,6 +3,7 @@ workdir /app
 copy services/auth/package.json ./
 copy shared ./packages/shared
 copy services/auth/ ./
+copy  services/base-server/ ./base-server
 run npm install
 expose 3010
 CMD ["npm","start"]

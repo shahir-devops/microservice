@@ -3,6 +3,7 @@ workdir /app
 copy services/payments/package.json ./
 copy shared ./packages/shared
 copy services/payments/ ./
+copy  services/base-server/ ./base-server
 expose 3006
 run npm install
 cmd ["npm", "start"]
