@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: shahir5890/backend_cart:16
+        image: shahir5890/backend_cart:17
         ports:
         - containerPort: 3002
         env:
