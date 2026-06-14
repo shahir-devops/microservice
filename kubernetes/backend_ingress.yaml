@@ -5,9 +5,7 @@ kind: Ingress
 metadata:
   name: backend
   namespace: sap
-  annotations:
-    # Do not rewrite paths. Backend services mount routes like `/api/auth/login` at `/`.
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  annotations: {}
 spec:
   ingressClassName: nginx
   rules:
