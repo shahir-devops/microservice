@@ -3,7 +3,7 @@ workdir /app
 copy services/helpcenter/package.json ./
 copy shared ./packages/shared
 copy services/helpcenter/ ./
-copy  services/base-server/ ./base-servers
+copy  services/base-server/ ./base-server
 RUN cd base-server && npm install
 run npm install
 expose 3007

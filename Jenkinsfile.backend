@@ -62,13 +62,6 @@ pipeline {
                 }
             }
         }
-        stage("ks"){
-            steps{
-                dir('kubernetes') {
-    sh 'ls -ltr'
-}
-            }
-        }
         stage("replace_tag") {
             steps {
                 withCredentials([string(credentialsId: 'git_Pat', variable: 'git_Pat')]) {
