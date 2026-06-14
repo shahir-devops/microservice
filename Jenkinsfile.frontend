@@ -46,7 +46,9 @@ pipeline {
                     sh """
                         git config user.email "shahirsyeed@gmail.com"
                         git config user.name "shahir-syed"
-                        sed -i 's#image:.*#image: shahir5890/frontend:${BUILD_NUMBER}#' frontend.yaml"
+
+                        sed -i 's#image:.*#image: shahir5890/frontend:${BUILD_NUMBER}#' frontend.yaml
+                        
                         git add .
                         git commit -m "updated code on jenkins frontend:${BUILD_NUMBER}"
                         git push https://${git_Pat}@github.com/${git_user}/${git_repo}.git HEAD:master
