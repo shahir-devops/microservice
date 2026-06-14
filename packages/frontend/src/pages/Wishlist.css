@@ -1,0 +1,10 @@
+.page{padding:16px;display:flex;justify-content:center}
+.shell{width:100%;max-width:980}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:12;margin-bottom:14px}
+.badgeDark{font-size:12px;padding:6px 10px;border-radius:999px;background:#111827;color:#fff;opacity:.9;font-weight:800}
+.cardBox{border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:14px;background:rgba(0,0,0,.02)}
+.cardBody{padding:0}
+.wlItemImg{width:64px;height:64px;border-radius:14px;object-fit:cover;box-shadow:0 8px 20px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.08)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:9999;max-width:92vw}
+.toast-body{font-weight:800}
+
