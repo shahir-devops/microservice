@@ -4,6 +4,7 @@ copy services/notifications/package.json ./
 copy shared ./packages/shared
 copy services/notifications/ ./
 copy  services/base-server/ ./base-server
+RUN cd base-server && npm install
 run npm install
 expose 3003
 cmd ["npm", "start"]

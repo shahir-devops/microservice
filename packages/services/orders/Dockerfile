@@ -4,6 +4,7 @@ copy services/orders/package.json ./
 copy shared ./packages/shared
 copy services/orders/ ./
 copy  services/base-server/ ./base-server
+RUN cd base-server && npm install
 run npm install
 expose 3005
 cmd ["npm", "start"]

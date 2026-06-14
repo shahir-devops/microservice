@@ -4,6 +4,7 @@ copy services/wishlist/package.json ./
 copy shared ./packages/shared
 copy services/wishlist/ ./
 copy  services/base-server/ ./base-server
+RUN cd base-server && npm install
 run npm install
 expose 3004
 cmd ["npm", "start"]
