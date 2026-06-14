@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name:  reviews
-        image: shahir5890/backend_reviews:12
+        image: shahir5890/backend_reviews:15
         env:
         - name: PORT
           value: "3009"
