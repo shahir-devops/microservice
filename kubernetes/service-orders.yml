@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name:  orders
-        image: shahir5890/backend_orders:5
+        image: shahir5890/backend_orders:7
         env:
         - name: PORT
           value: "3005"
