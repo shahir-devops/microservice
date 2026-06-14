@@ -2,15 +2,19 @@
 -- MySQL version of the original Postgres scaffold.
 
 -- profile
-CREATE DATABASE IF NOT EXISTS mysql;
-USE mysql
+CREATE DATABASE IF NOT EXISTS ecommerce;
+USE ecommerce
 
 CREATE TABLE IF NOT EXISTS profiles (
   user_id VARCHAR(255) PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
   display_name TEXT NOT NULL,
+  phone_number VARCHAR(50),
+  image_url TEXT,
   email VARCHAR(255),
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- cart
 CREATE TABLE IF NOT EXISTS carts (
@@ -30,9 +34,25 @@ CREATE TABLE IF NOT EXISTS cart_items (
 CREATE TABLE IF NOT EXISTS notifications (
   id VARCHAR(255) PRIMARY KEY,
   user_id VARCHAR(255) NOT NULL,
+  type VARCHAR(100) NOT NULL DEFAULT 'OFFER',
+  ref_id VARCHAR(255),
   message TEXT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- order_items
+CREATE TABLE IF NOT EXISTS order_items (
+  id VARCHAR(255) PRIMARY KEY,
+  order_id VARCHAR(255) NOT NULL,
+  sku VARCHAR(255) NOT NULL,
+  name TEXT NOT NULL,
+  image_url TEXT,
+  unit_cost DECIMAL(12,2) NOT NULL,
+  qty INT NOT NULL,
+  description TEXT,
+  CONSTRAINT order_items_qty_ck CHECK (qty > 0)
+);
+
 
 -- wishlist
 CREATE TABLE IF NOT EXISTS wishlist_items (
@@ -65,28 +85,46 @@ CREATE TABLE IF NOT EXISTS faqs (
   a TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS helpcenter_contact_messages (
+  id VARCHAR(255) PRIMARY KEY,
+  user_id VARCHAR(255),
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
 -- address
 CREATE TABLE IF NOT EXISTS addresses (
   id VARCHAR(255) PRIMARY KEY,
   user_id VARCHAR(255) NOT NULL,
   line1 TEXT NOT NULL,
   line2 TEXT,
+  street TEXT,
+  landmark TEXT,
+  location TEXT,
   city VARCHAR(255),
   state VARCHAR(255),
   country VARCHAR(255),
   postal_code VARCHAR(50),
+  pincode VARCHAR(50),
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- reviews
 CREATE TABLE IF NOT EXISTS reviews (
   id VARCHAR(255) PRIMARY KEY,
   user_id VARCHAR(255) NOT NULL,
+  order_id VARCHAR(255),
+  sku VARCHAR(255),
   rating INT NOT NULL,
   text TEXT,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT reviews_rating_ck CHECK (rating >= 1 AND rating <= 5)
 );
+
 
 -- auth (minimal)
 CREATE TABLE IF NOT EXISTS users (

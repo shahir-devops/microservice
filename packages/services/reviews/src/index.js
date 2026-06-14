@@ -6,13 +6,26 @@ const router = express.Router();
 
 router.get('/api/reviews', async (req, res, next) => {
   try {
-    await query('SELECT 1');
-    res.json({ ok: true, reviews: [{ id: 'r1', rating: 5, text: 'Great!' }] });
+    const userId = req.query.userId;
+
+    const { rows } = await query(
+      `SELECT id, user_id, order_id, sku, rating, text, created_at
+       FROM reviews
+       ${userId ? 'WHERE user_id = ?' : ''}
+       ORDER BY created_at DESC
+       LIMIT 200`,
+      userId ? [userId] : []
+    );
+
+    res.json({ ok: true, reviews: rows });
   } catch (e) {
     next(e);
   }
 });
 
+// Optional: creating reviews can be added later if the UI supports it.
+
 const port = process.env.PORT || 3009;
 createServer({ name: 'reviews', port, routes: router });
+
 

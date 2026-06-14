@@ -51,14 +51,41 @@ export function fetchProfile(userId = '1') {
   return getJSON(`/api/profile?userId=${encodeURIComponent(userId)}`);
 }
 
+export function updateProfile({ userId, username, displayName, phoneNumber, imageUrl }) {
+  return postJSON('/api/profile', {
+    userId,
+    username,
+    displayName,
+    phoneNumber,
+    imageUrl,
+  });
+}
+
+export function deleteProfile(userId = '1') {
+  return postJSON('/api/profile/delete', { userId });
+}
+
+
+
+
 
 export function fetchCart(userId = '1') {
-  return getJSON(`api/cart/?userId=${encodeURIComponent(userId)}`);
+  return getJSON(`/api/cart?userId=${encodeURIComponent(userId)}`);
+}
+
+export function upsertCartItem({ userId = '1', sku, qty }) {
+  return postJSON('/api/cart/items', { userId, sku, qty });
+}
+
+export function buyNow({ userId = '1', message }) {
+  return postJSON('/api/orders/buy-now', { userId, message });
 }
 
 export function fetchNotifications(userId = '1') {
   return getJSON(`/api/notifications?userId=${encodeURIComponent(userId)}`);
 }
+
+
 
 export function fetchWishlist(userId = '1') {
   return getJSON(`/api/wishlist?userId=${encodeURIComponent(userId)}`);
@@ -76,11 +103,34 @@ export function fetchHelpCenter() {
   return getJSON(`/api/helpcenter`);
 }
 
+export function createHelpCenterContact({ userId = '1', name, email, message }) {
+  return postJSON('/api/helpcenter/contact', { userId, name, email, message });
+}
+
 export function fetchAddress(userId = '1') {
   return getJSON(`/api/address?userId=${encodeURIComponent(userId)}`);
 }
 
-export function fetchReviews() {
-  return getJSON(`/api/reviews`);
+export function upsertAddress({ userId = '1', id, line1, line2, street, landmark, location, city, state, country, postalCode, pincode }) {
+  return postJSON('/api/address', {
+    userId,
+    id,
+    line1,
+    line2,
+    street,
+    landmark,
+    location,
+    city,
+    state,
+    country,
+    postalCode,
+    pincode,
+  });
 }
+
+export function fetchReviews(userId = '1') {
+  return getJSON(`/api/reviews?userId=${encodeURIComponent(userId)}`);
+}
+
+
 

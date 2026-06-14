@@ -7,12 +7,22 @@ const router = express.Router();
 router.get('/api/notifications', async (req, res, next) => {
   try {
     const userId = req.query.userId || '1';
-    await query('SELECT ? as user_id', [userId]);
-    res.json({ ok: true, notifications: [{ id: 'n1', message: 'Welcome!' }] });
+
+    const { rows } = await query(
+      `SELECT id, type, ref_id, message, created_at
+       FROM notifications
+       WHERE user_id = ?
+       ORDER BY created_at DESC
+       LIMIT 100`,
+      [userId]
+    );
+
+    res.json({ ok: true, notifications: rows });
   } catch (e) {
     next(e);
   }
 });
+
 
 const port = process.env.PORT || 3003;
 createServer({ name: 'notifications', port, routes: router });

@@ -23,6 +23,7 @@ router.post('/api/auth/login', async (req, res, next) => {
 
     const user = result?.rows?.[0];
     if (!user || user.password_hash !== password) {
+
       return res.status(401).json({ ok: false, error: 'invalid credentials' });
     }
 
@@ -52,12 +53,14 @@ router.post('/api/auth/signup', async (req, res, next) => {
     // dev-safe approach: create a deterministic user id (email -> safe text).
     const userId = `u:${Buffer.from(String(email)).toString('base64')}`;
 
+    // Insert new user.
     await query(
-      'SELECT id FROM userINSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)s WHERE email = ? LIMIT 1 ',
+      'INSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)',
       [userId, email, password]
     );
 
     const token = `dev-token:${userId}`;
+
 
     res.json({
       ok: true,

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiSignup } from '../api/client';
-
+import './auth/AuthCard.css';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -11,7 +11,10 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const canSubmit = useMemo(() => email.trim().length > 0 && password.trim().length > 0, [email, password]);
+  const canSubmit = useMemo(
+    () => email.trim().length > 0 && password.trim().length > 0,
+    [email, password]
+  );
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -24,36 +27,91 @@ export default function Signup() {
       localStorage.setItem('auth_token', token);
       navigate('/');
     } catch (err) {
-      setError(err.message || 'Signup failed');
+      setError(err?.message || 'Signup failed');
     } finally {
       setLoading(false);
     }
   }
 
-
   return (
-    <section style={{ maxWidth: 420, margin: '40px auto', padding: 16, border: '1px solid #eee', borderRadius: 10 }}>
-      <h2>Sign up</h2>
-      <p style={{ color: '#666' }}>Scaffold signup uses Postgres `users` table.</p>
+    <section className="auth-page">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-6 col-lg-4">
+            <div className="card border-0 auth-card mt-5">
+              <div className="card-body p-4">
+                <div className="d-flex align-items-start justify-content-between gap-3">
+                  <div>
+                    <h3 className="mb-1">Create account</h3>
+                    <p className="text-muted mb-3">
+                      Signup will store your user in MySQL.
+                    </p>
+                  </div>
+                  <div className="text-end">
+                    <div className="badge text-bg-light border">MySQL Auth</div>
+                  </div>
+                </div>
 
-      <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          Email
-          <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
-        </label>
+                <div className="mb-3">
+                  <a className="auth-link text-decoration-none" href="/login">
+                    Already have an account? Login
+                  </a>
+                </div>
 
-        <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          Password
-          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" required />
-        </label>
+                {error && (
+                  <div className="alert alert-danger py-2" role="alert">
+                    {error}
+                  </div>
+                )}
 
-        {error && <div style={{ color: 'crimson' }}>{error}</div>}
+                <form onSubmit={onSubmit}>
+                  <div className="mb-3">
+                    <label className="form-label">Email</label>
+                    <input
+                      className="form-control"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      type="email"
+                      autoComplete="email"
+                      required
+                    />
+                  </div>
 
-        <button disabled={!canSubmit || loading} type="submit" style={{ padding: '10px 12px' }}>
-          {loading ? 'Creating...' : 'Create account'}
-        </button>
-      </form>
+                  <div className="mb-3">
+                    <label className="form-label">Password</label>
+                    <input
+                      className="form-control"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      type="password"
+                      autoComplete="new-password"
+                      required
+                    />
+                  </div>
+
+                  <button
+                    disabled={!canSubmit || loading}
+                    type="submit"
+                    className="btn btn-success w-100 py-2"
+                  >
+                    {loading ? 'Creating...' : 'Create account'}
+                  </button>
+
+                  <div className="text-center mt-3">
+                    <span className="text-muted">Your credentials are used for dev testing.</span>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div className="text-center text-muted small mt-3 mb-5">
+              After signup, you’ll be redirected to services.
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
+
 
