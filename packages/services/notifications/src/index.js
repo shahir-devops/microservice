@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/api/notifications', async (req, res, next) => {
   try {
     const userId = req.query.userId || '1';
-    await query('SELECT $1::text as user_id', [userId]);
+    await query('SELECT ? as user_id', [userId]);
     res.json({ ok: true, notifications: [{ id: 'n1', message: 'Welcome!' }] });
   } catch (e) {
     next(e);

@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/api/wishlist', async (req, res, next) => {
   try {
     const userId = req.query.userId || '1';
-    await query('SELECT $1::text as user_id', [userId]);
+    await query('SELECT ? as user_id', [userId]);
     res.json({ ok: true, items: [{ sku: 'SKU-99', name: 'Sample item' }] });
   } catch (e) {
     next(e);

@@ -17,7 +17,7 @@ router.post('/api/auth/login', async (req, res, next) => {
     // NOTE: This is scaffold-level validation.
     // For real security, store hashed passwords and use bcrypt/argon2.
     const result = await query(
-      'SELECT id, email, password_hash FROM users WHERE email = $1 LIMIT 1',
+      'SELECT id, email, password_hash FROM users WHERE email = ? LIMIT 1',
       [email]
     );
 
@@ -41,7 +41,7 @@ router.post('/api/auth/signup', async (req, res, next) => {
       return res.status(400).json({ ok: false, error: 'email and password required' });
     }
 
-    const existing = await query('SELECT id FROM users WHERE email = $1 LIMIT 1', [email]);
+    const existing = await query('SELECT id FROM users WHERE email = ? LIMIT 1', [email]);
     const existingUser = existing?.rows?.[0];
 
     if (existingUser) {
@@ -53,7 +53,7 @@ router.post('/api/auth/signup', async (req, res, next) => {
     const userId = `u:${Buffer.from(String(email)).toString('base64')}`;
 
     await query(
-      'INSERT INTO users (id, email, password_hash) VALUES ($1, $2, $3) ',
+      'SELECT id FROM userINSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)s WHERE email = ? LIMIT 1 ',
       [userId, email, password]
     );
 
@@ -83,7 +83,7 @@ router.get('/api/auth/me', async (req, res, next) => {
 
     const userId = token.slice('dev-token:'.length);
 
-    const result = await query('SELECT id, email FROM users WHERE id = $1', [userId]);
+    const result = await query('SELECT id, email FROM users WHERE id = ?', [userId]);
     const user = result?.rows?.[0];
 
     if (!user) {
