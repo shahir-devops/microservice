@@ -34,52 +34,53 @@ async function getJSON(path) {
 }
 
 export function apiLogin({ email, password }) {
-  return postJSON('/auth/api/auth/login', { email, password });
+  return postJSON('/api/auth/login', { email, password });
 }
 
+
 export function apiMe() {
-  return getJSON('/auth/api/auth/me');
+  return getJSON('/api/auth/me');
 }
 
 export function apiSignup({ email, password }) {
-  return postJSON('/auth/api/auth/signup', { email, password });
+  return postJSON('/api/auth/signup', { email, password });
 }
 
 
 export function fetchProfile(userId = '1') {
-  return getJSON(`/profile/api/profile?userId=${encodeURIComponent(userId)}`);
+  return getJSON(`/api/profile?userId=${encodeURIComponent(userId)}`);
 }
 
 
 export function fetchCart(userId = '1') {
-  return getJSON(`/cart/api/cart?userId=${encodeURIComponent(userId)}`);
+  return getJSON(`api/cart/?userId=${encodeURIComponent(userId)}`);
 }
 
 export function fetchNotifications(userId = '1') {
-  return getJSON(`/notifications/api/notifications?userId=${encodeURIComponent(userId)}`);
+  return getJSON(`/api/notifications?userId=${encodeURIComponent(userId)}`);
 }
 
 export function fetchWishlist(userId = '1') {
-  return getJSON(`/wishlist/api/wishlist?userId=${encodeURIComponent(userId)}`);
+  return getJSON(`/api/wishlist?userId=${encodeURIComponent(userId)}`);
 }
 
 export function fetchOrders(userId = '1') {
-  return getJSON(`/orders/api/orders?userId=${encodeURIComponent(userId)}`);
+  return getJSON(`/api/orders?userId=${encodeURIComponent(userId)}`);
 }
 
 export function fetchPayments(userId = '1') {
-  return getJSON(`/payments/api/payments?userId=${encodeURIComponent(userId)}`);
+  return getJSON(`/api/payments?userId=${encodeURIComponent(userId)}`);
 }
 
 export function fetchHelpCenter() {
-  return getJSON(`/helpcenter/api/helpcenter`);
+  return getJSON(`/api/helpcenter`);
 }
 
 export function fetchAddress(userId = '1') {
-  return getJSON(`/address/api/address?userId=${encodeURIComponent(userId)}`);
+  return getJSON(`/api/address?userId=${encodeURIComponent(userId)}`);
 }
 
 export function fetchReviews() {
-  return getJSON(`/reviews/api/reviews`);
+  return getJSON(`/api/reviews`);
 }
 

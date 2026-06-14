@@ -5,78 +5,86 @@ kind: Ingress
 metadata:
   name: backend
   namespace: sap
+  annotations:
+    # Do not rewrite paths. Backend services mount routes like `/api/auth/login` at `/`.
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /profile/api
+      - path: /api/profile
         pathType: Prefix
         backend:
           service:
             name: profile
             port:
               number: 3001
-      - path: /cart/api
+      - path: /api/cart
         pathType: Prefix
         backend:
           service:
             name: cart
             port:
               number: 3002
-      - path: /notifications/api
+      - path: /api/notifications
         pathType: Prefix
         backend:
           service:
             name: notifications
             port:
               number: 3003
-      - path: /wishlist/api
+      - path: /api/wishlist
         pathType: Prefix
         backend:
           service:
             name: wishlist
             port:
               number: 3004
-      - path: /orders/api
+      - path: /api/orders
         pathType: Prefix
         backend:
           service:
             name: orders
             port:
               number: 3005
-      - path: /payments/api
+      - path: /api/payments
         pathType: Prefix
         backend:
           service:
             name: payment
             port:
               number: 3006
-      - path: /helpcenter/api
+      - path: /api/helpcenter
         pathType: Prefix
         backend:
           service:
             name: helpcenter
             port:
               number: 3007
-      - path: /address/api
+      - path: /api/address
         pathType: Prefix
         backend:
           service:
             name: address
             port:
               number: 3008
-      - path: /reviews/api
+      - path: /api/reviews
         pathType: Prefix
         backend:
           service:
             name: reviews
             port:
               number: 3009
-      - path: /auth/api
+      - path: /api/auth
         pathType: Prefix
         backend:
           service:
             name: auth
             port:
               number: 3010
+
+# If your auth service expects /api/auth/* but clients call /auth/api/*,
+# you can enable this rewrite by switching the auth path rule to regex/implementation-specific.
+# For nginx ingress, keep it simple by rewriting via annotation at the ingress level.
+
