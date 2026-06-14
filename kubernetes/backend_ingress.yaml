@@ -6,6 +6,7 @@ metadata:
   name: backend
   namespace: sap
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
