@@ -2,6 +2,9 @@
 -- MySQL version of the original Postgres scaffold.
 
 -- profile
+CREATE DATABASE IF NOT EXISTS mysql;
+USE mysql
+
 CREATE TABLE IF NOT EXISTS profiles (
   user_id VARCHAR(255) PRIMARY KEY,
   display_name TEXT NOT NULL,

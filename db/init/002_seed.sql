@@ -1,6 +1,8 @@
 -- Seed baseline records for dev (MySQL version)
 
 -- Keep dev user id consistent with auth/signup deterministic scheme (email -> base64)
+CREATE DATABASE IF NOT EXISTS mysql;
+USE mysql
 
 INSERT INTO profiles (user_id, display_name, email)
 VALUES ('u:ZGV2QGV4YW1wbGUuY29t', 'Dev User', 'dev@example.com')
