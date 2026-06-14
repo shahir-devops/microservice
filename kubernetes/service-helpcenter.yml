@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: helpcenter
-        image: shahir5890/backend_helpcenter:11
+        image: shahir5890/backend_helpcenter:12
         ports:
         - containerPort: 3007
         env:
