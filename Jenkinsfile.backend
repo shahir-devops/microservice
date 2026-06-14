@@ -48,7 +48,7 @@ pipeline {
                             for (service in services) {
 
                                 sh """
-                                    docker build \
+                                    docker build --no-cache \
                                     -f services/${service}/Dockerfile \
                                     -t shahir5890/backend_${service}:${BUILD_NUMBER} \
                                     .
