@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name:  payment
-        image:  payment:latest
+        image: shahir5890/backend_payments:3
         env:
         - name: PORT
           value: "3006"

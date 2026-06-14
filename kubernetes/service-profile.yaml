@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name:  profile
-        image:  profile:latest
+        image: shahir5890/backend_profile:3
         env:
         - name: PORT
           value: "3001"

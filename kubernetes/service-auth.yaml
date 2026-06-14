@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: auth:latest
+        image: shahir5890/backend_auth:3
         ports:
         - containerPort: 3010
         env:

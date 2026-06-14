@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name:  wishlist
-        image:  wishlist:latest
+        image: shahir5890/backend_wishlist:3
         env:
         - name: PORT
           value: "3004"
