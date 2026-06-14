@@ -6,6 +6,7 @@ metadata:
   name: frontend
   namespace: sap
 spec:
+  ingressClassName: nginx
   rules:
   - host: shahirdevops.com
     http:
