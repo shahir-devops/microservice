@@ -19,7 +19,7 @@ pipeline {
 
                     sh '''
                     docker system prune -af
-                    docker build --no-cache -f packages/frontend/Dockerfile -t shahir5890/frontend:${BUILD_NUMBER} .
+                    docker build -f packages/frontend/Dockerfile -t shahir5890/frontend:${BUILD_NUMBER} .
                     '''
                 }
             }
