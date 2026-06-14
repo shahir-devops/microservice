@@ -16,6 +16,8 @@ spec:
       containers:
         - image:  notifications
           name:  notifications
+          ports:
+          - containerPort: 3003
           env:
           - name:  PORT
             value:  "3003"

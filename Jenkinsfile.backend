@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment{
+        git_user = "shahir-devops"
+        git_repo = "microservice"
+    }
+
     stages {
         stage('git') {
             steps {
@@ -66,8 +71,12 @@ pipeline {
         }
         stage("replace_tag") {
             steps {
+                withCredentials([string(credentialsId: 'git_Pat', variable: 'git_Pat')]) {
                 dir("kubernetes") {
                     sh """
+                        git config user.email "shahirsyeed@gmail.com"
+                        git config user.name "shahir-syed"
+
                         sed -i 's#image:.*#image: shahir5890/backend_auth:${BUILD_NUMBER}#' service-auth.yaml
                         sed -i 's#image:.*#image: shahir5890/backend_profile:${BUILD_NUMBER}#' service-profile.yaml
                         sed -i 's#image:.*#image: shahir5890/backend_cart:${BUILD_NUMBER}#' service-cart.yaml
@@ -78,7 +87,13 @@ pipeline {
                         sed -i 's#image:.*#image: shahir5890/backend_helpcenter:${BUILD_NUMBER}#' service-helpcenter.yml
                         sed -i 's#image:.*#image: shahir5890/backend_address:${BUILD_NUMBER}#' service-address.yml
                         sed -i 's#image:.*#image: shahir5890/backend_reviews:${BUILD_NUMBER}#' service-reviews.yaml
+                    
+                        git add .
+                        git commit -m "updated code on jenkins backend:${BUILD_NUMBER}"
+                        git push https://${git_Pat}@github.com/${git_user}/${git_repo}.git HEAD:master
+
                     """
+                   }
                 }
             }
         }

@@ -13,18 +13,19 @@ spec:
       labels:
         app: helpcenter
     spec:
-    - name: helpcenter
-      image: helpcenter:latest
-      ports:
-      - containerPort: 3007
-      env:
-      - name: PORT
-        value: "3007"
-      - name: DATABASE_URL
-        valueFrom:
-          secretKeyRef:
-            name: secret-db
-            key: DATABASE_URL
+      containers:
+      - name: helpcenter
+        image: helpcenter:latest
+        ports:
+        - containerPort: 3007
+        env:
+        - name: PORT
+          value: "3007"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: secret-db
+              key: DATABASE_URL
 ---
 apiVersion: v1
 kind: Service
